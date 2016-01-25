@@ -1,0 +1,16 @@
+#game table {
+	margin: 0 auto;
+}
+#game table, #game th, #game td {
+	border-collapse: collapse;
+	border: 0.1em white solid;
+}
+#game td {
+	height:	2em;
+	width: 2em;
+	background-color: #1E88E5;
+	cursor: crosshair;
+}
+#game td:hover {
+	background-color: #1565C0;
+}
