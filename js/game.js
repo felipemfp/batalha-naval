@@ -3,7 +3,7 @@ var Game = Game || (function() {
 	var _hits		= 0;
 	var _ships 		= {};
 	var _letters 	= "ABCDEFGHIJ";		
-	var $rows 		= $('#game table tr');
+	var $rows 		= {};
 
 	function start() {
 		var title = document.title;
@@ -40,6 +40,7 @@ var Game = Game || (function() {
 	}
 
 	function set_coords() {
+		$rows = $('#game table tr');
 		for (x = 0, length = $rows.length; x < length; x++) {
 			$rows.eq(x).data('row', _letters[x]);
 			var $cols = $rows.eq(x).find('td');
