@@ -22,8 +22,7 @@ var Game = Game || (function() {
 		set_coords();
 		set_events();
 		set_ships();
-        $("audio#melody").get(0).volume = .25;
-        $("audio#melody").get(0).play();
+        play_sound('melody', .25);
 		clearInterval(interval);
 		document.title = title;
 	}
@@ -59,6 +58,9 @@ var Game = Game || (function() {
 			var row = $this.parent().data('row'); 
 			var col = $this.data('col');
 			attack($this, row, col);
+		});
+		$('#game table td').off('hover').hover(function() {			
+			play_sound('click');
 		});
 	}
 
@@ -214,16 +216,15 @@ var Game = Game || (function() {
 			$cell.css('background-color', 'black');
 			$cell.attr('title', 'Você acertou um navio em ' + row + column);
 			_hits++;
-			$('audio#hit').get(0).play();
+			play_sound('hit');
 		}
 		else {						
 			$cell.css('background-color', '#0D47A1');
 			$cell.attr('title', 'Você já jogou uma bomba em ' + row + column);
-			$('audio#miss').get(0).play();
+			play_sound('miss');
 		}
 		
 		check_game_over();
-		return false;
 	}
 
 	function check_game_over() {
@@ -233,8 +234,18 @@ var Game = Game || (function() {
 			if (confirm('Você ganhou com ' + ((_hits/_bombs) * 100).toFixed() + '% de taxa de acerto.\nTentativas: '+_bombs+'\nAcertos: '+_hits+'\nDeseja iniciar um novo jogo?')) {
 				location.reload();
 			}
-			$('#game td').off("click");
+			$('#game td').off('click mouseenter mouseleave');
 		}
+	}
+	
+	function play_sound(id, volume) {
+		var sound = $('audio#' + id).get(0);
+		if  (volume) {
+			sound.volume = volume;
+		}
+		sound.pause();
+		sound.currentTime = 0;
+		sound.play();
 	}
 
 	return {
