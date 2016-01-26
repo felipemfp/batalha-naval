@@ -44,10 +44,10 @@ var Game = Game || (function() {
 	function set_coords() {
 		$rows = $('#game table tr');
 		for (x = 0, length = $rows.length; x < length; x++) {
-			$rows.eq(x).data('row', _letters[x]);
+			$rows.eq(x).attr('data-row', _letters[x]);
 			var $cols = $rows.eq(x).find('td');
 			for (y = 0, length = $cols.length; y < length; y++) {
-				$cols.eq(y).data('col', (y + 1));
+				$cols.eq(y).attr('data-col', (y + 1));
 				$cols.eq(y).attr('title', 'Jogar bomba em ' + _letters[x] +  (y + 1));
 			}
 		}

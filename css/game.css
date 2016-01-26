@@ -1,7 +1,16 @@
+#game table tr:before {
+	content: attr(data-row);
+	margin-right: .5em;
+}
+#game table tr:first-child td:before {	
+	content: attr(data-col);
+	top: -2.5em;
+	position: relative;
+}
 #game table {
 	margin: 0 auto;
 }
-#game table, #game th, #game td {
+#game table, #game tr, #game td {
 	border-collapse: collapse;
 	border: 0.1em white solid;
 }
