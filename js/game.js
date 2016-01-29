@@ -62,6 +62,17 @@ var Game = Game || (function() {
 		$('#game table td').off('hover').hover(function() {			
 			play_sound('click');
 		});
+		$('#sound-checkbox input').off('change').change(function() {
+			if(!$(this).is(':checked'))	{
+				var $audios = $('audio');
+				for (var i = 0, length = $audios.length; i < length; i++) {
+					$audios.get(i).pause();
+				}
+			}	
+			else if(_hits < 17) {
+				play_sound('melody');
+			}
+		});
 	}
 
 	function set_ships() {
@@ -230,7 +241,7 @@ var Game = Game || (function() {
 	function check_game_over() {
 		if (_hits == 17) {			
 			$('audio#melody').get(0).pause();
-			$('audio#win').get(0).play();
+			play_sound('win');
 			if (confirm('Você ganhou com ' + ((_hits/_bombs) * 100).toFixed() + '% de taxa de acerto.\nTentativas: '+_bombs+'\nAcertos: '+_hits+'\nDeseja iniciar um novo jogo?')) {
 				location.reload();
 			}
@@ -239,13 +250,15 @@ var Game = Game || (function() {
 	}
 	
 	function play_sound(id, volume) {
-		var sound = $('audio#' + id).get(0);
-		if  (volume) {
-			sound.volume = volume;
+		if ($('#sound-checkbox input').is(':checked')) {
+			var sound = $('audio#' + id).get(0);
+			if  (volume) {
+				sound.volume = volume;
+			}
+			sound.pause();
+			sound.currentTime = 0;
+			sound.play();
 		}
-		sound.pause();
-		sound.currentTime = 0;
-		sound.play();
 	}
 
 	return {

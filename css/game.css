@@ -23,3 +23,8 @@
 #game td:hover {
 	background-color: #1565C0;
 }
+#sound-checkbox {
+	position: fixed;
+	bottom: .5em;
+	left: .5em;
+}
